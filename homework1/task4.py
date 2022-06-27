@@ -1,16 +1,20 @@
+
+
 from itertools import combinations
 
-
 def bananas(s):
-    output = []
-    dashes = len(s) - 6
-    indices = combinations(range(len(s)), dashes)
-    for ind in indices:
-        word = "".join([x if i not in ind else "-" for i, x in enumerate(s)])
-        if word.replace("-", "") == "banana":
-            output.append(word)
-    return output
+    word = "banana"
+    out = []
+    new_s = list(enumerate(s))
 
+    for x in combinations(new_s, r=6):
+        k = list(s)
+        if ''.join(j[1] for j in x) == word:
+            for i,ch in enumerate(s):
+                if (i,ch) not in x:
+                    k[i] = '-'
+            out.append(''.join(k))
+    return out
 
 assert bananas("banann") == set()
 assert bananas("banana") == {"banana"}
